@@ -6,7 +6,7 @@ build:binary:
   stage: build_binary
   image: golang:1.8.3
   script:
-    mkdir -p $GOPATH/src/gitlab.zoona.io/ops-engineering/nomad-eval-monitor
+    - mkdir -p $GOPATH/src/gitlab.zoona.io/ops-engineering/nomad-eval-monitor
     - cp -r . $GOPATH/src/gitlab.zoona.io/ops-engineering/nomad-eval-monitor
     - go build gitlab.zoona.io/ops-engineering/nomad-eval-monitor
   artifacts:
