@@ -1,4 +1,5 @@
-FROM gliderlabs/alpine:3.4
+FROM docker-registry.zoona.io/ops-engineering/docker-alpine-java8:e8fec096bd03dd932b58731b1878806a1ed8d459
+
 
 RUN apk update && apk-install openssh-client && apk-install bash
 
