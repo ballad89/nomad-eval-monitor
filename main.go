@@ -29,6 +29,20 @@ func statesRunning(al map[string]*nomad.TaskState) (bool, error) {
 		case structs.TaskStatePending:
 			return false, nil
 		case structs.TaskStateRunning:
+			l := len(allocState.Events)
+			if l == 0 {
+				return false, nil
+			}
+			e := allocState.Events[l-1]
+
+			if e.Type == structs.TaskTerminated || e.Type == structs.TaskRestarting {
+				return false, nil
+			}
+
+			if e.ExitCode != 0 {
+				return false, nil
+			}
+
 			continue
 		default:
 			return false, nil
@@ -300,7 +314,7 @@ func main() {
 		fmt.Printf("\033[0;32mDone!\033[0m All allocations for evaluation %s are running\n", *evalID)
 	case <-ctx.Done():
 		printReport(nomadClient, consulClient, *evalID)
-		fmt.Printf("\033[0;31mTimeout!\033[0m Allocations did not finish running within deadline of \033[0;31m%f\033[0m seconds\n", (*timeout).Seconds())
+		fmt.Printf("\033[0;31mTimeout!\033[0m Job did not finish running within deadline of \033[0;31m%f\033[0m seconds\n", (*timeout).Seconds())
 		os.Exit(1)
 	}
 
