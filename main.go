@@ -94,6 +94,8 @@ func printReport(nCl *nomad.Client, cCl *consul.Client, id string) {
 
 		header := []string{"Job", "Alloc-ID", "Task", "State", "Failed", "Restarts", "Events"}
 		table.SetHeader(header)
+		table.SetAutoMergeCells(true)
+		table.SetRowLine(true)
 
 		for task, tstate := range alloc.TaskStates {
 
@@ -121,6 +123,7 @@ func printReport(nCl *nomad.Client, cCl *consul.Client, id string) {
 		table2 := tablewriter.NewWriter(os.Stdout)
 		header2 := []string{"Service", "Status"}
 		table2.SetHeader(header2)
+		table2.SetRowLine(true)
 
 		for _, tg := range alloc.Job.TaskGroups {
 
