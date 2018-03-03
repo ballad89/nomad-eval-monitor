@@ -4,7 +4,7 @@ nomad-eval-monitor
 *Majority of this functionality is now covered by [nomad deployments](https://www.nomadproject.io/docs/commands/deployment/status.html)*
 
 
-Tool to monitor the progress of a nomad evaluation id.
+Tool to monitor the progress of a nomad evaluation.
 This tool was developed to facilitate automating the orchestration of nomad jobs.
 
 - `id`: the evaluation id to be monitored.
